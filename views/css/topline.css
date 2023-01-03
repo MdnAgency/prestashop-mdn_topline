@@ -1,0 +1,27 @@
+#top-line{
+    background: black;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    padding: 0.5rem 3rem;
+    position: relative;
+}
+
+
+@media (min-width: 728px) {
+    #top-line {
+        position: fixed;
+        top: 0;
+        z-index: 20;
+    }
+}
+
+#top-line .close-topline {
+    color: white;
+    line-height: 0;
+    font-size: 0.875rem;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+}
