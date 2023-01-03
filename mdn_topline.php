@@ -11,6 +11,7 @@ class Mdn_Topline extends Module implements WidgetInterface {
     const END     = "TOPLINE_END";
     const START   = "TOPLINE_START";
     const UNIQ_ID   = "TOPLINE_UNIQ_ID";
+    const DURATION   = "TOPLINE_DURATION";
 
 
     public function __construct()
@@ -81,6 +82,7 @@ class Mdn_Topline extends Module implements WidgetInterface {
                 'cookie' => "topline-" . Configuration::get(self::UNIQ_ID),
                 'message' => Configuration::get(self::MESSAGE),
                 'uniq_id' => Configuration::get(self::UNIQ_ID),
+                'duration' => Configuration::get(self::DURATION) != "" ? Configuration::get(self::DURATION) : 1,
             ]
         ];
     }
@@ -110,6 +112,7 @@ class Mdn_Topline extends Module implements WidgetInterface {
             // Sauvegarde des champs dans la DB
             Configuration::updateValue(self::ENABLED, Tools::getValue(self::ENABLED) );
             Configuration::updateValue(self::MESSAGE, Tools::getValue(self::MESSAGE) );
+            Configuration::updateValue(self::DURATION, Tools::getValue(self::DURATION) );
 
             Configuration::updateValue(self::START, (Tools::getValue(self::START)) );
             Configuration::updateValue(self::END, (Tools::getValue(self::END)) );
@@ -139,8 +142,8 @@ class Mdn_Topline extends Module implements WidgetInterface {
                             ['id_option' => 0, "name" => "Non"],
                             ['id_option' => 1, "name" => "Oui"],
                         ],
-                      'id' => 'id_option',
-                      'name' => 'name'
+                        'id' => 'id_option',
+                        'name' => 'name'
                     ],
                     'label' => ('Activé :'),
                     'name' => self::ENABLED,
@@ -150,6 +153,13 @@ class Mdn_Topline extends Module implements WidgetInterface {
                     'type' => 'text',
                     'label' => ('Message :'),
                     'name' => self::MESSAGE,
+                    'required' => false
+                ],
+                [
+                    'type' => 'text',
+                    'label' => ('Durée du cookie (en jours) :'),
+                    'name' => self::DURATION,
+                    'helper' => 'Permet de faire apparaitre le bandeau tous les X jours',
                     'required' => false
                 ],
                 [
@@ -207,6 +217,7 @@ class Mdn_Topline extends Module implements WidgetInterface {
         $helper->fields_value[self::MESSAGE] = Configuration::get(self::MESSAGE);
         $helper->fields_value[self::START] = Configuration::get(self::START);
         $helper->fields_value[self::END] = Configuration::get(self::END);
+        $helper->fields_value[self::DURATION] = Configuration::get(self::DURATION);
 
         return $helper->generateForm($fieldsForm);
     }

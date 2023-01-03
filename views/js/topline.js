@@ -4,10 +4,11 @@ var topline = document.querySelector('#top-line');
 if(topline_close) {
     topline_close.addEventListener('click', function (e) {
         var id = topline_close.getAttribute('data-cookie-id');
+        var duration = parseInt(topline_close.getAttribute('data-cookie-duration'));
         function setcookie(cookieName,cookieValue) {
             var today = new Date();
             var expire = new Date();
-            expire.setTime(today.getTime() + 3600000*24);
+            expire.setTime(today.getTime() + 3600000*24 * duration);
             document.cookie = cookieName+"="+encodeURI(cookieValue) + ";expires="+expire.toGMTString();
         }
 
